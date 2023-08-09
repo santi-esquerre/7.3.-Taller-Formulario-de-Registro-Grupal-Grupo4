@@ -1,17 +1,13 @@
 const regBtn = document.getElementById("regBtn");
 
-const textboxNombre = document.getElementById("nombre");
-
-const textboxApellido = document.getElementById("apellido");
-
-const textboxEmail = document.getElementById("email");
-
-const textboxPassword1 = document.getElementById("password1");
-
-const textboxPassword2 = document.getElementById("password2");
-const checkbox = document.getElementById("terminos");
-
 regBtn.addEventListener("click", function showAlert() {
+  const textboxNombre = document.getElementById("nombre");
+  const textboxApellido = document.getElementById("apellido");
+  const textboxEmail = document.getElementById("email");
+  const textboxPassword1 = document.getElementById("password1");
+  const textboxPassword2 = document.getElementById("password2");
+  const checkbox = document.getElementById("terminos");
+
   if (
     textboxNombre.value == "" ||
     textboxEmail.value == "" ||
@@ -31,4 +27,10 @@ regBtn.addEventListener("click", function showAlert() {
       document.getElementById("alert-success").classList.remove("show");
     }, 3000);
   }
+  textboxNombre.value = "";
+  textboxApellido.value = "";
+  textboxEmail.value = "";
+  textboxPassword1.value = "";
+  textboxPassword2.value = "";
+  checkbox.checked = false;
 });
