@@ -1,72 +1,71 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const password1 = document.getElementById("password1");
+  const password2 = document.getElementById("password2");
   const regBtn = document.getElementById("regBtn");
-  const textboxNombre = document.getElementById("nombre");
-  const textboxApellido = document.getElementById("apellido");
-  const textboxEmail = document.getElementById("email");
-  const textboxPassword1 = document.getElementById("password1");
-  const textboxPassword2 = document.getElementById("password2");
-  const checkbox = document.getElementById("terminos");
+  const terminos = document.getElementById("terminos");
 
-  regBtn.addEventListener("click", function showAlert() {
-    if (
-      textboxNombre.value == "" ||
-      textboxEmail.value == "" ||
-      textboxApellido.value == "" ||
-      textboxPassword1.value.toString().length < 6 ||
-      textboxPassword2.value.toString().length < 6 ||
-      textboxPassword1.value !== textboxPassword2.value ||
-      checkbox.checked == false
-    ) {
-      document.getElementById("alert-danger").classList.add("show");
-      setTimeout(function () {
-        document.getElementById("alert-danger").classList.remove("show");
-      }, 3000);
+  function verificar() {
+    if (password1.value !== password2.value) {
+      password2.setCustomValidity("Las contraseñas no coinciden");
     } else {
-      document.getElementById("alert-success").classList.add("show");
-      setTimeout(function () {
-        document.getElementById("alert-success").classList.remove("show");
-      }, 3000);
+      password2.setCustomValidity("");
     }
 
-    textboxNombre.value = "";
-    textboxApellido.value = "";
-    textboxEmail.value = "";
-    textboxPassword1.value = "";
-    textboxPassword2.value = "";
-    checkbox.checked = false;
-  });
-
-  textboxPassword2.addEventListener("change", function () {
-    if (textboxPassword1.value !== textboxPassword2.value) {
-      textboxPassword2.setCustomValidity("Las contraseñas no coinciden");
+    if (!document.getElementById("terminos").checked) {
+      var validateText = document.createElement("div");
+      validateText.innerHTML = `<div class="invalid-feedback d-block">
+                          Debe aceptar los términos y condiciones del servicio.
+                        </div>`;
+      document.getElementById("terminosDiv").appendChild(validateText);
+      document
+        .getElementById("terminosDiv")
+        .querySelector(`#terminosBtn`)
+        .classList.add("text-danger");
+    } else {
+      document
+        .getElementById("terminosDiv")
+        .querySelector(".invalid-feedback")
+        .remove();
+      document
+        .getElementById("terminosDiv")
+        .querySelector(`#terminosBtn`)
+        .classList.remove("text-danger");
     }
-  });
+  }
+  password1.addEventListener("input", verificar);
+  password2.addEventListener("input", verificar);
+
+  regBtn.addEventListener("click", verificar);
+
+  terminos.addEventListener("change", verificar);
 });
 
-function validateForm() {
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
   "use strict";
-  window.addEventListener(
-    "load",
-    function () {
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.getElementsByClassName("needs-validation");
-      // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function (form) {
-        form.addEventListener(
-          "submit",
-          function (event) {
-            if (form.checkValidity() === false) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-            form.classList.add("was-validated");
-          },
-          false
-        );
-      });
-    },
-    false
-  );
-}
 
-document.getElementById("regBtn").addEventListener("click", validateForm());
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll(".needs-validation");
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms).forEach(function (form) {
+    form.addEventListener(
+      "submit",
+      function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+
+        form.classList.add("was-validated");
+      },
+      false
+    );
+  });
+})();
+
+let string = "aguante el manya";
+for (var i = 0; i < 100; i++) {
+  console.log(string);
+  string += "a";
+}
